@@ -3,7 +3,14 @@ name: Release
 on:
   push:
     tags:
+      - "v*.*"
       - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v2.0.1)"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -20,12 +27,14 @@ jobs:
       - run: npm ci || npm install
       - name: Check version sync
         env:
-          TAG_VERSION: ${{ github.ref_name }}
+          TAG_VERSION: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
         run: npm run check:version
       - run: npm run validate
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
+          target_commitish: ${{ github.sha }}
           files: |
             telegram.user.js
           generate_release_notes: true
