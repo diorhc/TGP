@@ -1,0 +1,5 @@
+telegram.user.js
+telegram.min.user.js
+node_modules
+dist
+coverage

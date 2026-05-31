@@ -1,0 +1,16 @@
+{
+  "$comment": "Explicit module concatenation order for the userscript bundle.",
+  "files": [
+    "src/pure.js",
+    "src/main.js",
+    "src/i18n.js",
+    "src/utils.js",
+    "src/settings.js",
+    "src/report.js",
+    "src/update.js",
+    "src/download.js",
+    "src/ui.js",
+    "src/keyboard.js",
+    "src/observers.js"
+  ]
+}

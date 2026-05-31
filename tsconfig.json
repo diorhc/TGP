@@ -1,0 +1,19 @@
+{
+  "//": "Userscript bundle: src/*.js are CONCATENATION FRAGMENTS, not modules (the top-level IIFE is opened in src/main.js and closed in src/ui.js — see build.order.json + scripts/build.js). They share globals across the bundle (DEFAULT_SETTINGS, PAGE_WINDOW, GM_*, unsafeWindow), so any per-file TS/JS checker produces hundreds of false positives and parse errors. Real quality gates live in `npm run validate`: ESLint + Jest (44 tests) + check-modules + check-version + check-locales + build + validate-build. This tsconfig exists only to give the editor reasonable defaults for scripts/ and test/; src/ is intentionally excluded.",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "moduleResolution": "bundler",
+    "module": "ES2020",
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["scripts/**/*.js", "test/**/*.js", "build.js"],
+  "exclude": ["node_modules", "src", "telegram.user.js", "telegram.min.user.js", "dist"]
+}

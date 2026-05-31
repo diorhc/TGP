@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+      - run: npm ci || npm install
+      - name: Check version sync
+        env:
+          TAG_VERSION: ${{ github.ref_name }}
+        run: npm run check:version
+      - run: npm run validate
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            telegram.user.js
+          generate_release_notes: true
