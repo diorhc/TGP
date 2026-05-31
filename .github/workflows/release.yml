@@ -24,7 +24,7 @@ jobs:
         run: npm run check:version
       - run: npm run validate
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             telegram.user.js
